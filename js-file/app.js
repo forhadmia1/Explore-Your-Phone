@@ -5,6 +5,7 @@ const loadResult = () =>{
     const searchKeyword = searchValue.toLowerCase();
     searchfield.value='';
     const emptyError =document.getElementById('empty-field');
+    //error message show and data load
     if(searchKeyword==''){
         emptyError.style.display= "block";
         document.getElementById('error').style.display="none";
@@ -15,6 +16,7 @@ const loadResult = () =>{
         .then(data => displayData(data.data.slice(0,20)))
     } 
 }
+
 //display the data of search result in UI
 const displayData=phones=>{
     const phoneContainer = document.getElementById('phone-container');
@@ -54,17 +56,19 @@ const singleDetails=phoneId =>{
 }
 //show single details on UI
 const showSingleDetails= phoneInfo =>{
+    console.log(phoneInfo)
     const singleContainer = document.getElementById('single-details');
     singleContainer.innerHTML = `
         <div class="col-md-6 d-flex justify-content-center">
             <img class="img-fluid w-50" src="${phoneInfo.image}" alt="">
         </div>
         <div class="col-md-6">
-            <h3>Name : ${phoneInfo.brand}</h3>
+            <h3>Name : ${phoneInfo.name}</h3>
+            <p><span class="fw-bold">Brand: </span>${phoneInfo.brand}</p>
             <p><span class="fw-bold">Release Date:</span> ${phoneInfo.releaseDate?phoneInfo.releaseDate:"no release date found"}</p>
-            <p><span class="fw-bold">Mini Features:</span> storage:${phoneInfo.mainFeatures.storage} Display:${phoneInfo.mainFeatures.displaySize} Chipset :${phoneInfo.mainFeatures.chipSet} Memory:${phoneInfo.mainFeatures.memory}</p> 
-            <p><span class="fw-bold">Others :</span>${phoneInfo.others?`Bluetooth:${phoneInfo.others.Bluetooth} Gps:${phoneInfo.others.GPS} NFC:${phoneInfo.others.NFC} Radio:${phoneInfo.others.Radio} USB:${phoneInfo.others.USB} WLAN:${phoneInfo.others.WLAN}`:'Not Found'}</p>
-            <p class="text-wrap"><span class="fw-bold">Sensor:</span>${phoneInfo.mainFeatures.sensors.join(' ')}</p>
+            <p><span class="fw-bold">Main Features:</span> storage:${phoneInfo.mainFeatures.storage} Display:${phoneInfo.mainFeatures.displaySize} Chipset :${phoneInfo.mainFeatures.chipSet} Memory:${phoneInfo.mainFeatures.memory}</p> 
+            <p><span class="fw-bold">Others : </span>${phoneInfo.others?`Bluetooth: ${phoneInfo.others.Bluetooth} Gps: ${phoneInfo.others.GPS} NFC: ${phoneInfo.others.NFC} Radio: ${phoneInfo.others.Radio} USB: ${phoneInfo.others.USB} WLAN: ${phoneInfo.others.WLAN}`:'Not Found'}</p>
+            <p class="text-wrap"><span class="fw-bold">Sensor:</span>${phoneInfo.mainFeatures.sensors.join(', ')}</p>
         </div>
     `;
 }
