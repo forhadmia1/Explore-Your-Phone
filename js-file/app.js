@@ -1,7 +1,9 @@
 //Load data for search result
 const loadResult = () =>{
-    const searchValue = document.getElementById('search-field').value;
+    const searchfield =document.getElementById('search-field');
+    const searchValue = searchfield.value;
     const searchKeyword = searchValue.toLowerCase();
+    searchfield.value='';
     const emptyError =document.getElementById('empty-field');
     if(searchKeyword==''){
         emptyError.style.display= "block";
@@ -10,29 +12,23 @@ const loadResult = () =>{
         emptyError.style.display= "none";
         fetch(` https://openapi.programming-hero.com/api/phones?search=${searchKeyword}`)
         .then(res => res.json())
-        .then(data => displayData(data.data))
+        .then(data => displayData(data.data.slice(0,20)))
     } 
 }
 //display the data of search result in UI
 const displayData=phones=>{
     const phoneContainer = document.getElementById('phone-container');
-    const errorContainer = document.getElementById('error');
+    const noResult = document.getElementById('error');
     //clear the display before show result
     document.getElementById('single-details').textContent='';
     phoneContainer.textContent='';
     //show result
-    let numberOfPhones;
     if(phones.length == 0){
-        errorContainer.style.display='block';
+        noResult.style.display='block';
     }else{
-        if(phones.length>20){
-            numberOfPhones= phones.slice(0,20);
-        }else{
-            numberOfPhones=phones;
-        };
         //display result in UI
-        errorContainer.style.display = 'none';
-        numberOfPhones.forEach(phone => {
+        noResult.style.display = 'none';
+        phones.forEach(phone => {
             const div = document.createElement('div');
             div.className ="col"
             div.innerHTML= `
@@ -58,19 +54,17 @@ const singleDetails=phoneId =>{
 }
 //show single details on UI
 const showSingleDetails= phoneInfo =>{
-    // const {Bluetooth,GPS,NFC,Radio,USB,WLAN}=phoneInfo.others;
-    console.log(phoneInfo)
     const singleContainer = document.getElementById('single-details');
     singleContainer.innerHTML = `
-        <div class="col-md-6">
-            <img src="${phoneInfo.image}" alt="">
+        <div class="col-md-6 d-flex justify-content-center">
+            <img class="img-fluid w-50" src="${phoneInfo.image}" alt="">
         </div>
         <div class="col-md-6">
-            <h3>Name:${phoneInfo.brand}</h3>
+            <h3>Name : ${phoneInfo.brand}</h3>
             <p><span class="fw-bold">Release Date:</span> ${phoneInfo.releaseDate?phoneInfo.releaseDate:"no release date found"}</p>
-            <p><span class="fw-bold">Mini Features:</span> storage:${phoneInfo.mainFeatures.storage} Display:${phoneInfo.mainFeatures.displaySize} Chipset:${phoneInfo.mainFeatures.chipSet} Memory:${phoneInfo.mainFeatures.memory}</p>
-            <p><span class="fw-bold">Others:</span>${phoneInfo.others?`Bluetooth:${phoneInfo.others.Bluetooth} Gps:${phoneInfo.others.GPS} NFC:${phoneInfo.others.NFC} Radio:${phoneInfo.others.Radio} USB:${phoneInfo.others.USB} WLAN:${phoneInfo.others.WLAN}`:'Not Found'}</p>
-            <p><span class="fw-bold">Sensor:</span>${phoneInfo.mainFeatures.sensors}</p>
+            <p><span class="fw-bold">Mini Features:</span> storage:${phoneInfo.mainFeatures.storage} Display:${phoneInfo.mainFeatures.displaySize} Chipset :${phoneInfo.mainFeatures.chipSet} Memory:${phoneInfo.mainFeatures.memory}</p> 
+            <p><span class="fw-bold">Others :</span>${phoneInfo.others?`Bluetooth:${phoneInfo.others.Bluetooth} Gps:${phoneInfo.others.GPS} NFC:${phoneInfo.others.NFC} Radio:${phoneInfo.others.Radio} USB:${phoneInfo.others.USB} WLAN:${phoneInfo.others.WLAN}`:'Not Found'}</p>
+            <p class="text-wrap"><span class="fw-bold">Sensor:</span>${phoneInfo.mainFeatures.sensors.join(' ')}</p>
         </div>
     `;
 }
