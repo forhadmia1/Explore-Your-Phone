@@ -1,4 +1,6 @@
-//Load data for search result
+/*===================================
+    Load data for search result
+====================================*/
 const loadResult = () =>{
     const searchfield =document.getElementById('search-field');
     const searchValue = searchfield.value;
@@ -16,8 +18,9 @@ const loadResult = () =>{
         .then(data => displayData(data.data.slice(0,20)))
     } 
 }
-
-//display the data of search result in UI
+/*=============================================
+    display the data of search result in UI
+===============================================*/
 const displayData=phones=>{
     const phoneContainer = document.getElementById('phone-container');
     const noResult = document.getElementById('error');
@@ -40,7 +43,7 @@ const displayData=phones=>{
                         <h5 class="card-title">${phone.phone_name}</h5>
                         <p class="card-text">${phone.brand}</p>
                     </div>
-                    <button onclick="singleDetails('${phone.slug}')" class="btn btn-primary">Details</button>
+                    <button onclick="singleDetails('${phone.slug}')" class="btn btn-primary fw-bold">Details</button>
                 </div>
             `;
             phoneContainer.appendChild(div);
@@ -48,13 +51,18 @@ const displayData=phones=>{
     }
     
 }
-//load single details 
+/*===========================
+    load single details 
+===========================*/
 const singleDetails=phoneId =>{
     fetch(`https://openapi.programming-hero.com/api/phone/${phoneId}`)
     .then(res => res.json())
     .then(data => showSingleDetails(data.data))
 }
-//show single details on UI
+
+/*================================
+    show single details on UI
+=================================*/
 const showSingleDetails= phoneInfo =>{
     console.log(phoneInfo)
     const singleContainer = document.getElementById('single-details');
