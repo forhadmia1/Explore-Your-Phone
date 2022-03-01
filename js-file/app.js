@@ -68,7 +68,7 @@ const showSingleDetails= phoneInfo =>{
     const singleContainer = document.getElementById('single-details');
     singleContainer.innerHTML = `
         <div class="col-md-6 d-flex justify-content-center">
-            <img class="img-fluid w-50" src="${phoneInfo.image}" alt="">
+            <img class="img-fluid" src="${phoneInfo.image}" alt="">
         </div>
         <div class="col-md-6">
             <h3>Name : ${phoneInfo.name}</h3>
@@ -78,7 +78,7 @@ const showSingleDetails= phoneInfo =>{
             <p><span class="fw-bold">Display:</span> ${phoneInfo.mainFeatures.displaySize}</p>
             <p><span class="fw-bold">Chipset:</span> ${phoneInfo.mainFeatures.chipSet}</p>
             <p><span class="fw-bold">Memory:</span> ${phoneInfo.mainFeatures.memory}</p> 
-            <p><span class="fw-bold">Others : </span>${phoneInfo.others?`<span class="fw-bold">Bluetooth:</span> ${phoneInfo.others.Bluetooth} <span class="fw-bold">Gps:</span> ${phoneInfo.others.GPS} <span class="fw-bold">NFC:</span> ${phoneInfo.others.NFC} <span class="fw-bold">Radio:</span> ${phoneInfo.others.Radio}<span class="fw-bold">USB:</span> ${phoneInfo.others.USB} <span class="fw-bold">WLAN:</span> ${phoneInfo.others.WLAN}`:'Not Found'}</p>
+            <p>${phoneInfo.others?`<span class="fw-bold">Bluetooth:</span> ${phoneInfo.others.Bluetooth} <span class="fw-bold">Gps:</span> ${phoneInfo.others.GPS} <span class="fw-bold">NFC:</span> ${phoneInfo.others.NFC} <span class="fw-bold">Radio:</span> ${phoneInfo.others.Radio}<span class="fw-bold">USB:</span> ${phoneInfo.others.USB} <span class="fw-bold">WLAN:</span> ${phoneInfo.others.WLAN}`:'Not Found'}</p>
             <p class="text-wrap"><span class="fw-bold">Sensor:</span>${phoneInfo.mainFeatures.sensors.join(', ')}</p>
         </div>
     `;
