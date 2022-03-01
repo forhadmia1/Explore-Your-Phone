@@ -64,7 +64,6 @@ const singleDetails=phoneId =>{
     show single details on UI
 =================================*/
 const showSingleDetails= phoneInfo =>{
-    console.log(phoneInfo)
     const singleContainer = document.getElementById('single-details');
     singleContainer.innerHTML = `
         <div class="col-md-6 d-flex justify-content-center">
