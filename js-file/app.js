@@ -11,6 +11,9 @@ const loadResult = () =>{
     if(searchKeyword==''){
         emptyError.style.display= "block";
         document.getElementById('error').style.display="none";
+        //clear UI 
+        document.getElementById('phone-container').textContent= '';
+        document.getElementById('single-details').textContent = '';
     }else{
         emptyError.style.display= "none";
         fetch(` https://openapi.programming-hero.com/api/phones?search=${searchKeyword}`)
